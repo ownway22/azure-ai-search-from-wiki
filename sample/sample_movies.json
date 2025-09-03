@@ -1,0 +1,14 @@
+{
+    "movies": [
+        {"id": "1", "title": "The Shawshank Redemption", "genre": "Drama", "releaseYear": 1994, "director": "Frank Darabont"},
+        {"id": "2", "title": "The Godfather", "genre": "Crime", "releaseYear": 1972, "director": "Francis Ford Coppola"},
+        {"id": "3", "title": "The Dark Knight", "genre": "Action", "releaseYear": 2008, "director": "Christopher Nolan"},
+        {"id": "4", "title": "Schindler's List", "genre": "Biography", "releaseYear": 1993, "director": "Steven Spielberg"},
+        {"id": "5", "title": "Pulp Fiction", "genre": "Crime", "releaseYear": 1994, "director": "Quentin Tarantino"},
+        {"id": "6", "title": "The Lord of the Rings: The Return of the King", "genre": "Fantasy", "releaseYear": 2003, "director": "Peter Jackson"},
+        {"id": "7", "title": "The Good, the Bad and the Ugly", "genre": "Western", "releaseYear": 1966, "director": "Sergio Leone"},
+        {"id": "8", "title": "Fight Club", "genre": "Drama", "releaseYear": 1999, "director": "David Fincher"},
+        {"id": "9", "title": "Forrest Gump", "genre": "Drama", "releaseYear": 1994, "director": "Robert Zemeckis"},
+        {"id": "10", "title": "Inception", "genre": "Sci-Fi", "releaseYear": 2010, "director": "Christopher Nolan"}
+    ]
+}

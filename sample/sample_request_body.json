@@ -1,0 +1,39 @@
+{
+    "name": "movies-index",
+    "fields": [
+      { "name": "id", "type": "Edm.String", "key": true, "filterable": false, "sortable": false },
+      { "name": "title", "type": "Edm.String", "filterable": true, "searchable": true },
+      { "name": "genre", "type": "Edm.String", "filterable": true, "searchable": true },
+      { "name": "releaseYear", "type": "Edm.Int32", "filterable": true, "sortable": true },
+      { "name": "director", "type": "Edm.String", "filterable": true, "searchable": true },
+      { "name": "content", "type": "Edm.String", "filterable": false, "searchable": true },
+      {
+        "name": "contentVector",
+        "type": "Collection(Edm.Single)",
+        "searchable": true,
+        "retrievable": true,
+        "dimensions": 1536,
+        "vectorSearchProfile": "my-default-vector-profile"
+    }
+    ],
+    "vectorSearch": {
+        "algorithms": [
+            {
+                "name": "my-hnsw-config-1",
+                "kind": "hnsw",
+                "hnswParameters": {
+                    "m": 4,
+                    "efConstruction": 400,
+                    "efSearch": 500,
+                    "metric": "cosine"
+                }
+            }
+        ],
+        "profiles": [
+            {
+                "name": "my-default-vector-profile",
+                "algorithm": "my-hnsw-config-1"
+            }
+        ]
+    }
+}

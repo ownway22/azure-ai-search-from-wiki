@@ -1,0 +1,88 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "file_name": "credentials.md",
+      "category": "DevOps",
+      "type": "credentials",
+      "content": "[FAKE SAMPLE ACCOUNTS — DO NOT USE IN REAL ENVIRONMENTS]\n\n# Service accounts (placeholders)\nsvc-ci-runner           | Scope: build only        | Secret storage: KeyVault\nsvc-release-automation | Scope: deploy to staging | Secret storage: KeyVault\n\n# Service principals (placeholder values)\nspn-cicd-deployer | appId=33333333-3333-3333-3333-333333333333 | tenant=11111111-1111-1111-1111-111111111111 | role=Contributor (RG scope)\nspn-terraform     | appId=44444444-4444-4444-4444-444444444444 | tenant=11111111-1111-1111-1111-111111111111 | role=Owner (Sandbox only)\n\n# Human users (sample)\ndave.p@example.com  | Role: DevOps Engineer | MFA: enabled\nerin.s@example.com  | Role: SRE Lead        | MFA: enabled\nhana.y@example.com  | Role: Platform Eng    | MFA: enabled\n\n# Notes\n- Rotate credentials regularly; prefer OIDC federation over secrets where supported.\n- Use least privilege and scoped resource groups/subscriptions.\n"
+    },
+    {
+      "id": "2",
+      "file_name": "knowledge-ci-cd.md",
+      "category": "DevOps",
+      "type": "knowledge",
+      "content": "# CI/CD Best Practices (Demo)\n\nPipelines\n- Use short-lived, reproducible runners; cache dependencies responsibly\n- Fail fast on lint/type/test; separate build and deploy stages\n- Promote artifacts across environments (dev → test → prod) — no rebuilds\n\nSecurity\n- Prefer workload identity/OIDC over long-lived secrets\n- Sign artifacts and verify provenance; enable supply-chain security (SLSA)\n- Scan dependencies and containers; block critical CVEs\n\nQuality\n- Trunk-based development; PR checks with required reviews\n- Flaky test quarantine + retry policy; track test stability\n- Enforce code coverage thresholds with trend monitoring\n\nOperations\n- Blue/green or canary deployments with automated rollback\n- Observability baked in: metrics, logs, traces; SLOs and error budgets\n- Infra as Code with linting/formatting and policy-as-code gates\n\nNotes\n- This is a demo knowledge doc; tailor to your org and toolchain.\n"
+    },
+    {
+      "id": "3",
+      "file_name": "meeting-notes-2025-09-02.md",
+      "category": "DevOps",
+      "type": "meeting_notes",
+      "content": "# DevOps Weekly Sync — 2025-09-02\n\nAttendees: Dave P., Erin S., Hana Y., Frank L.\nFacilitator: Erin\nNotes Taker: Hana\n\nAgenda\n- Pipeline reliability and flaky tests\n- Blue/green deployment status\n- Infra-as-code linting baseline\n\nDecisions\n- Migrate canary percentage from 5% to 10% on staging for faster signal\n- Enforce IaC linting in pre-commit and CI (soft-fail for 1 sprint)\n\nAction Items\n- [Erin] Add test quarantine and retry policy to CI — due 2025-09-05\n- [Dave] Document rollback runbook for API service — due 2025-09-04\n- [Hana] Enable artifact provenance metadata in builds — due 2025-09-06\n\nNotes\n- Mean build time: 11m 42s (goal: <10m)\n- 2 flaky tests identified in payments module\n"
+    },
+    {
+      "id": "4",
+      "file_name": "sample_ci_healthcheck.py.md",
+      "category": "DevOps",
+      "type": "code",
+      "content": "```python\n\"\"\"\nSample CI Healthcheck Script (fake/demo)\n- Verifies presence of common tooling\n- Checks expected CI environment variables\n\nUsage (example):\n  python sample_ci_healthcheck.py\n\"\"\"\nfrom __future__ import annotations\nimport shutil\nimport subprocess\nimport sys\nimport os\nfrom typing import Iterable\n\nTOOLS = [\"git\", \"dotnet\", \"python\"]\nENV_VARS = [\"BUILD_NUMBER\", \"GIT_COMMIT\", \"AZURE_SUBSCRIPTION_ID\"]\n\n\ndef is_tool_available(tool: str) -> bool:\n    return shutil.which(tool) is not None\n\n\ndef check_tools(tools: Iterable[str]) -> dict[str, bool]:\n    return {t: is_tool_available(t) for t in tools}\n\n\ndef check_env_vars(vars: Iterable[str]) -> dict[str, bool]:\n    return {v: (os.getenv(v) is not None) for v in vars}\n\n\ndef get_version(cmd: list[str]) -> str:\n    try:\n        out = subprocess.check_output(cmd, stderr=subprocess.STDOUT, text=True, timeout=5)\n        return out.strip().splitlines()[0]\n    except Exception as e:\n        return f\"unknown ({e})\"\n\n\ndef main(argv: list[str]) -> int:\n    print(\"[+] Checking required tools...\")\n    tool_status = check_tools(TOOLS)\n    for t, ok in tool_status.items():\n        print(f\" - {t}: {'found' if ok else 'missing'}\")\n    if tool_status.get(\"git\"):\n        print(f\"    git version: {get_version(['git', '--version'])}\")\n    if tool_status.get(\"dotnet\"):\n        print(f\"    dotnet version: {get_version(['dotnet', '--version'])}\")\n    if tool_status.get(\"python\"):\n        print(f\"    python version: {get_version([sys.executable, '--version'])}\")\n\n    print(\"[+] Checking CI environment variables...\")\n    env_status = check_env_vars(ENV_VARS)\n    for v, ok in env_status.items():\n        print(f\" - {v}: {'present' if ok else 'absent'}\")\n\n    missing_tools = [t for t, ok in tool_status.items() if not ok]\n    missing_env = [v for v, ok in env_status.items() if not ok]\n\n    if missing_tools or missing_env:\n        print(\"[!] CI healthcheck FAILED\")\n        if missing_tools:\n            print(\"    Missing tools:\", \", \".join(missing_tools))\n        if missing_env:\n            print(\"    Missing env vars:\", \", \".join(missing_env))\n        return 1\n\n    print(\"[+] CI healthcheck PASSED\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main(sys.argv[1:]))\n\n```"
+    },
+    {
+      "id": "5",
+      "file_name": "credentials.md",
+      "category": "Networking",
+      "type": "credentials",
+      "content": "# Demo credentials (FAKE - for testing workflows only)\nusername: demo_user\npassword: P@ssw0rd123!\n"
+    },
+    {
+      "id": "6",
+      "file_name": "knowledge-vpn-troubleshooting.md",
+      "category": "Networking",
+      "type": "knowledge",
+      "content": "# VPN Troubleshooting\n\n1. Check connectivity to gateway IP.\n2. Verify certificate is valid and not expired.\n3. Confirm split-tunnel routes in client logs.\n\nReferences:\n- RFC 4301, RFC 6071\n"
+    },
+    {
+      "id": "7",
+      "file_name": "meeting-notes-2025-08-15.md",
+      "category": "Networking",
+      "type": "meeting_notes",
+      "content": "# Networking Team Sync - 2025-08-15\n\nAttendees: Alice, Bob, Carol\n\nTopics:\n- Firewall change window next Tuesday\n- VPN client upgrade rollout\n\nActions:\n- [ ] Bob to test IPSec profile on staging\n- [ ] Carol to update runbook\n"
+    },
+    {
+      "id": "8",
+      "file_name": "sample_check_gateway.py.md",
+      "category": "Networking",
+      "type": "code",
+      "content": "```python\nimport socket\n\ndef check_port(host: str, port: int, timeout: float = 2.0) -> bool:\n    with socket.socket() as s:\n        s.settimeout(timeout)\n        try:\n            s.connect((host, port))\n            return True\n        except OSError:\n            return False\n\nif __name__ == \"__main__\":\n    print(\"Gateway reachable:\", check_port(\"10.0.0.1\", 443))\n\n```"
+    },
+    {
+      "id": "9",
+      "file_name": "credentials.md",
+      "category": "Security",
+      "type": "credentials",
+      "content": "[FAKE SAMPLE ACCOUNTS — DO NOT USE IN REAL ENVIRONMENTS]\n\n# Human users\nalice.w@example.com | Role: Security Analyst | MFA: enabled | Privileged: no\nbob.k@example.com    | Role: SecOps Lead     | MFA: enabled | Privileged: yes\ncarol.t@example.com  | Role: IR Specialist   | MFA: enabled | Privileged: no\n\n# Break-glass (placeholder only)\nbreakglass-security@example.com | MFA: enforced out-of-band | Rotates: quarterly\n\n# Service principals (placeholder values)\nspn-security-scanner | appId=00000000-0000-0000-0000-000000000000 | tenant=11111111-1111-1111-1111-111111111111 | note: least-privileged\nspn-siem-ingestor     | appId=22222222-2222-2222-2222-222222222222 | tenant=11111111-1111-1111-1111-111111111111 | note: storage:blob:datareader\n\n# Notes\n- All entries are fictitious, for demos and tests only.\n- Replace with environment-specific accounts via secure secret management.\n"
+    },
+    {
+      "id": "10",
+      "file_name": "knowledge-incident-response.md",
+      "category": "Security",
+      "type": "knowledge",
+      "content": "# Incident Response Quick Guide (Demo)\n\nScope: High-level, vendor-agnostic steps for common security incidents. This is a demo knowledge doc.\n\nPhases\n1) Preparation\n   - Maintain asset inventory, backups, logging, and alerting baselines\n   - Drill tabletop exercises quarterly\n2) Identification\n   - Validate alerts; collect indicators (hashes, IPs, users, hosts)\n3) Containment\n   - Short-term: isolate hosts, block IOCs, disable compromised accounts\n   - Long-term: network segmentation, patching, hardening\n4) Eradication\n   - Remove malware/backdoors; rotate keys/secrets; close exploited vectors\n5) Recovery\n   - Restore from trusted backups; monitor closely; staged reintegration\n6) Lessons Learned\n   - Blameless postmortem; update playbooks; improve detections\n\nChecklists\n- Access control: MFA required, least privilege, JIT/JEA for admin tasks\n- Logging: Forward to SIEM, time synchronized (NTP), retention ≥ 90 days\n- Backups: Offline/immutable copies; test restores monthly\n\nReferences (placeholder)\n- NIST SP 800-61r2 Computer Security Incident Handling Guide\n- CIS Controls v8\n"
+    },
+    {
+      "id": "11",
+      "file_name": "meeting-notes-2025-09-02.md",
+      "category": "Security",
+      "type": "meeting_notes",
+      "content": "# Security Weekly Sync — 2025-09-02\n\nAttendees: Alice W., Bob K., Carol T., Frank L.\nFacilitator: Alice\nNotes Taker: Bob\n\nAgenda\n- Patch Tuesday prep and change window\n- Vulnerability triage (CVE-2025-XXXX)\n- Incident playbook dry-run\n- IAM cleanup progress\n\nDecisions\n- Approve emergency patching for edge gateways in the 02:00–04:00 window UTC\n- Prioritize CVSS ≥ 8.0 vulnerabilities for remediation this sprint\n- Adopt standard tagging for privileged accounts: tag=privileged:true\n\nAction Items\n- [Alice] Coordinate maintenance window comms with Ops — due 2025-09-04\n- [Carol] Update WAF ruleset to include new bot signatures — due 2025-09-03\n- [Bob] Draft post-patch validation checklist — due 2025-09-03\n- [Frank] Inventory all break-glass accounts and verify MFA/Just-in-Time — due 2025-09-06\n\nNotes\n- No production incidents in the past 7 days\n- SIEM false-positive rate down 12% after rule tuning\n- Next tabletop exercise scheduled for 2025-09-12\n"
+    },
+    {
+      "id": "12",
+      "file_name": "sample_security_healthcheck.py.md",
+      "category": "Security",
+      "type": "code",
+      "content": "```python\n\"\"\"\nSample Security Healthcheck Script (fake/demo)\n- Scans a few common ports on a host\n- Optionally searches a log file for suspicious indicators\n\nUsage (example):\n  python sample_security_healthcheck.py --host 127.0.0.1 --log .\\\\security.log\n\nNote: This is a demo script with safe defaults and no external dependencies.\n\"\"\"\nfrom __future__ import annotations\nimport argparse\nimport socket\nimport sys\nfrom pathlib import Path\n\nCOMMON_PORTS = [22, 80, 443, 3389]\nIOC_KEYWORDS = [\n    \"Failed password\",\n    \"unauthorized\",\n    \"malware\",\n    \"sql injection\",\n    \"xss\",\n    \"ransom\",\n]\n\ndef check_port(host: str, port: int, timeout: float = 0.5) -> bool:\n    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:\n        s.settimeout(timeout)\n        try:\n            s.connect((host, port))\n            return True\n        except Exception:\n            return False\n\n\ndef scan_common_ports(host: str) -> dict[int, bool]:\n    results: dict[int, bool] = {}\n    for p in COMMON_PORTS:\n        results[p] = check_port(host, p)\n    return results\n\n\ndef search_log_for_iocs(log_path: Path) -> list[str]:\n    hits: list[str] = []\n    if not log_path.exists():\n        return hits\n    try:\n        with log_path.open(\"r\", encoding=\"utf-8\", errors=\"ignore\") as f:\n            for i, line in enumerate(f, start=1):\n                lower = line.lower()\n                if any(ind.lower() in lower for ind in IOC_KEYWORDS):\n                    hits.append(f\"Line {i}: {line.strip()}\")\n    except Exception as e:\n        hits.append(f\"Error reading log: {e}\")\n    return hits\n\n\ndef main(argv: list[str]) -> int:\n    parser = argparse.ArgumentParser(description=\"Demo security healthcheck\")\n    parser.add_argument(\"--host\", default=\"127.0.0.1\", help=\"Host to scan (default: 127.0.0.1)\")\n    parser.add_argument(\"--log\", type=str, default=None, help=\"Optional log file to scan for IOCs\")\n    args = parser.parse_args(argv)\n\n    print(f\"[+] Scanning host: {args.host}\")\n    results = scan_common_ports(args.host)\n    for port, open_ in results.items():\n        print(f\" - Port {port}: {'OPEN' if open_ else 'closed'}\")\n\n    if args.log:\n        log_path = Path(args.log)\n        print(f\"[+] Searching for IOCs in {log_path}\")\n        hits = search_log_for_iocs(log_path)\n        if hits:\n            print(\"[!] Potential indicators found:\")\n            for h in hits:\n                print(f\"    - {h}\")\n        else:\n            print(\"[+] No known indicators found.\")\n\n    print(\"[+] Done.\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main(sys.argv[1:]))\n\n```"
+    }
+  ]
+}

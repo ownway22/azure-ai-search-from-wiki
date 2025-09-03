@@ -1,0 +1,26 @@
+[project]
+name = "azure-ai-search-from-wiki"
+version = "0.1.0"
+description = "Export Azure DevOps wiki to local files"
+authors = [{name="You"}]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "aiohttp==3.12.14",
+  "aiosqlite==0.21.0",
+  "azure-search-documents==11.6.0b12",
+  "azure-ai-agents==1.1.0b2",
+  "azure-ai-projects==1.0.0b12",
+  "azure-identity==1.23.0",
+  "autogen-agentchat==0.6.2",
+  "autogen-ext[openai]",
+  "requests>=2.32.0,<3",
+  "python-dotenv>=1.0.1,<2",
+  "pip-system-certs>=5.2",
+]
+
+[project.scripts]
+export-wiki = "wiki_export.__main__:main"
+
+[tool.ruff]
+line-length = 100

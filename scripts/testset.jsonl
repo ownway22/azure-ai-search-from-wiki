@@ -1,0 +1,30 @@
+{"query": "CI/CD 管道的最佳做法是什麼？", "ground_truth": "使用短期的、可重複的執行器；負責任地緩存依賴項；快速失敗於 lint/type/test；分離構建和部署階段；跨環境推廣構建工件（開發 → 測試 → 生產），並避免重新構建。"}
+{"query": "在安全性方面，文件建議採用什麼措施？", "ground_truth": "文件建議偏好使用工作負載身份/OIDC 而不是長期秘密，簽署構建工件並驗證其來源，啟用供應鏈安全（SLSA），以及掃描依賴項和容器來阻止關鍵的 CVE。"}
+{"query": "關於測試可靠性，CI/CD 文件中提到的政策是什麼？", "ground_truth": "文件提到了針對不穩定的測試採用隔離和重試政策，並跟蹤測試穩定性。"}
+{"query": "文件中提到哪些部署策略？", "ground_truth": "提到的部署策略包括使用藍綠部署或金絲雀部署，並啟用自動回退機制。"}
+{"query": "運營環節中提到的觀察性建議是什麼？", "ground_truth": "運營環節提到應包括內建的可觀察性功能，例如指標、日誌和追蹤；制訂 SLO 和錯誤預算。"}
+{"query": "文件對基礎設施作為代碼的建議是什麼？", "ground_truth": "文件建議將基礎設施作為代碼，並輔以 linting/格式化以及基於政策的自動化審核。"}
+{"query": "文件中提到的服務型帳戶例子有哪些？", "ground_truth": "文件中提到的服務型帳戶包括 'svc-ci-runner'（僅限構建範圍），秘密存儲在 KeyVault。"}
+{"query": "提供涵蓋人員角色與權限的樣本數據是什麼？", "ground_truth": "樣本數據包括 DevOps 工程師 Dave，需啟用多因素身份驗證（MFA）；SRE 負責人 Erin，同樣啟用 MFA。"}
+{"query": "針對管道的可靠性改進措施是什麼？", "ground_truth": "升級金絲雀部署階段的百分比從 5% 到 10% 以獲取更快的信號，同時要求在 '軟失敗' 模式中實施基礎設施代碼的 linting。"}
+{"query": "文件中提到的行動項目有哪些？", "ground_truth": "行動項目包括：Erin 需在 2025-09-05 前新增測試隔離和重試政策；Dave 在 2025-09-04 前記錄 API 服務的回滾手冊；Hana 在 2025-09-06 前啟用構建中工件的來源元數據。"}
+{"query": "VPN 故障排除的步驟有哪些？", "ground_truth": "VPN 故障排除的步驟包括：檢查至 Gateway IP 的連線、驗證憑證是否有效且未過期、確認客戶端日誌中是否有分割通道的路由記錄【6:2†source】。"}
+{"query": "Firewall 修改窗口安排在什麼時候？", "ground_truth": "Firewall 修改窗口安排在下週二【6:1†source】。"}
+{"query": "IPSec 配置檔的測試責任為誰？", "ground_truth": "IPSec 配置檔的測試由 Bob 負責【6:1†source】。"}
+{"query": "如何檢查特定地址與埠的可達性？", "ground_truth": "可以通過執行 sample_check_gateway.py 腳本檢查特定地址與埠的可達性。該腳本使用 Python 的 socket 模組連接到指定主機與埠，並返回結果【6:3†source】。"}
+{"query": "Split-tunnel 路由的相關資訊需檢查哪裡？", "ground_truth": "需要檢查 VPN 客戶端日誌以確認 Split-tunnel 路由資料【6:2†source】。"}
+{"query": "誰被指派更新 runbook？", "ground_truth": "更新 runbook 的責任指派給了 Carol【6:1†source】。"}
+{"query": "VPN Troubleshooting 參考了哪些 RFC 文檔？", "ground_truth": "VPN Troubleshooting 參考的 RFC 文檔有 RFC 4301 與 RFC 6071【6:2†source】。"}
+{"query": "sample_check_gateway.py 的超時時間設置為多少？", "ground_truth": "sample_check_gateway.py 預設的超時時間設置為 2.0 秒【6:3†source】。"}
+{"query": "測試用的憑證中用戶名稱與密碼分別為什麼？", "ground_truth": "測試用的憑證中用戶名稱為 demo_user，密碼為 P@ssw0rd123!【6:4†source】。"}
+{"query": "如何驗證 VPN 憑證的健康狀態？", "ground_truth": "需要確保憑證有效且未過期，以確認 VPN 憑證的健康狀態【6:2†source】。"}
+{"query": "誰將負責協調維護窗口的溝通？", "ground_truth": "Alice負責協調維護窗口的溝通，期限為2025-09-04【4:0†meeting-notes-2025-09-02】."}
+{"query": "在2025年9月2日的會議中，哪個決策強調了優先處理高CVSS分數漏洞？", "ground_truth": "會議決定在這次衝刺周期內優先處理CVSS分數大於或等於8.0的漏洞【4:0†meeting-notes-2025-09-02】."}
+{"query": "有哪些人出席了2025年9月2日的週會？", "ground_truth": "出席者包括Alice W., Bob K., Carol T., 和 Frank L.【4:0†meeting-notes-2025-09-02】."}
+{"query": "哪一位成員的行動項目是更新WAF規則以包含新的機器人簽名？", "ground_truth": "Carol 負責更新WAF規則以包含新的機器人簽名，期限為2025-09-03【4:0†meeting-notes-2025-09-02】."}
+{"query": "安全健康檢查腳本檢查了哪些常見的埠口？", "ground_truth": "安全健康檢查腳本檢查的常見埠口包括22, 80, 443和3389【4:3†sample_security_healthcheck.py.md】."}
+{"query": "在事件回應快速指南中，哪些方法被列為短期遏制措施？", "ground_truth": "短期遏制措施包括隔離主機、阻止IOC以及禁用受損賬戶【4:2†knowledge-incident-response.md】."}
+{"query": "是否有針對MFA的要求列入事件回應清單中？", "ground_truth": "是的，事件回應清單中要求使用多因素驗證（MFA）來確保存取安全【4:2†knowledge-incident-response.md】."}
+{"query": "針對安全腳本的使用範例中，如何執行一個基礎掃描的命令？", "ground_truth": "可以使用範例命令: python sample_security_healthcheck.py --host 127.0.0.1 --log .\\security.log【4:3†sample_security_healthcheck.py.md】."}
+{"query": "Incident Response Quick Guide提到必須多久進行一次桌面演練？", "ground_truth": "這份指南提到需要每季度進行一次桌面演練【4:2†knowledge-incident-response.md】."}
+{"query": "是否有提到Fake Sample Accounts的主要用途？", "ground_truth": "Fake Sample Accounts 僅供演示和測試使用，不能用於真實環境【4:1†credentials.md】."}
