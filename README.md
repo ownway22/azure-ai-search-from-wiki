@@ -1,10 +1,10 @@
 # 🔎 azure-ai-search-from-wiki
-以 Python 腳本將 Azure DevOps Wiki 與本機知識庫串接，支援 Markdown 匯出/上傳、JSON 彙整、建立含向量欄位的 Azure AI Search 索引，以及以 Azure AI Foundry Agents 產生 QA 測試集。協助您在 Azure DevOps 與本機知識庫間往返：
+以 Python 腳本將 Azure DevOps Wiki 與本機知識庫串接，支援 Markdown 匯出/上傳、JSON 彙整、建立含向量欄位的 Azure AI Search 索引，以及以 Azure AI Foundry Agents 產生 Q&A 測試集。協助您在 Azure DevOps 與本機知識庫間往返：
 - 將 Azure DevOps Project Wiki 匯出為本機 Markdown 檔。
 - 將本機 IT-knowledge 目錄上傳回 Azure DevOps Wiki（自動建立頁面與子頁面）。
 - 彙整匯出的 Markdown 為結構化 JSON。
 - 建立 Azure AI Search 索引（含向量欄位）。
-- 透過 Azure AI Foundry Agents 依據內容自動產生測試用 QA 資料集（JSONL）。
+- 透過 Azure AI Foundry Agents 依據內容自動產生測試用 Q&A 測試集（JSONL）。
 
 適合想要快速把團隊 Wiki 內容導入搜尋與代理（agents）應用的開發者與資料工程師。
 
@@ -15,7 +15,7 @@
 - 將本機 IT-knowledge 目錄（Networking / Security / DevOps）一鍵上傳為 Wiki 頁面與子頁面。
 - 將所有 Markdown 彙整成單一 `it_knowledge.json`（含類別與類型標註）。
 - 透過 REST 建立 Azure AI Search 索引，支援全文與向量（Hybrid）搜尋。
-- 使用 Azure AI Foundry Agents 自動產生測試集 `testset.jsonl`（問答急）。
+- 使用 Azure AI Foundry Agents 自動產生測試集 `testset.jsonl`（Q&A 測試集）。
 
 ---
 
@@ -136,7 +136,7 @@ uv run python .\scripts\03_create_index_with_filter.py
 針對 `wiki-export/` 下每個子資料夾：
 1. 上傳所有檔案到 Agents Files API。
 2. 建立一個 vector store 並透過 `FileSearchTool` 掛載到一個 `gpt-4o`（或您指定部署）agent。
-3. 以系統提示要求 agent 僅根據文件內容產生固定數量（預設 10 組）的問答對。
+3. 以系統提示要求 agent 僅根據文件內容產生固定數量（預設 10 組）的Q&A。
 4. 聚合輸出為 `scripts/testset.jsonl`（每行 `{ "query": "...", "ground_truth": "..." }`）。
 
 執行：
